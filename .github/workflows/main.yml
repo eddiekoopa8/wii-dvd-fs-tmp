@@ -34,8 +34,8 @@ jobs:
       run: |
         baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
         
-        declare -i start=11
-        declare -i count=10
+        declare -i start=30
+        declare -i count=20
         declare -i index=0
         
         start=$(( start - 1 ))
@@ -50,7 +50,7 @@ jobs:
                         gamedisc="$line.rvz"
                         echo -e "$line"
                         echo -e "      Downloading"
-                        wget "$gamelnk"
+                        wget -q "$gamelnk"
                         echo -e "      Extract"
                         7z x "$gamezip" -y -bso0 -bsp0 -bse0
                         rm -rf "$gamezip"
