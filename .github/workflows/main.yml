@@ -11,6 +11,7 @@ env:
 jobs:
   main:
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       fail-fast: false
 
@@ -55,6 +56,10 @@ jobs:
                         echo -e "$line ($index/$count)"
                         echo -e "     Download"
                         wget -q "$gamelnk"
+                        while [ $? -ne 0 ]; do
+                            echo -e "         TRY AGAIN"
+                            wget -q "$gamelnk"
+                        done
                         echo -e "     Extract"
                         7z x "$gamezip" -y -bso0 -bsp0 -bse0
                         rm -rf "$gamezip"
