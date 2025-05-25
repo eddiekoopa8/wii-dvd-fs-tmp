@@ -14,24 +14,49 @@ jobs:
     # Checkout
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     # Setup environment
     - name: Setup environment
       run: |
-        mkdir -p list
         sudo apt-get update
-        chmod +x get.sh
+        mkdir -p list
 
     # Install dependencies
     - name: Install dependencies
-      run: sudo apt install 7zip
+      run: |
+        sudo apt install 7zip
+        wget -q "https://github.com/encounter/decomp-toolkit/releases/download/v1.5.1/dtk-linux-x86_64"
+        mv dtk* dtk
+        chmod +x dtk
 
     # List files
     - name: List files
       run: |
-        bash get.sh
+        echo SETUP!!!
+        baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
+        declare -i start=0
+        declare -i count=10
+        declare -i index=0
+        count=$(( count + start ))
+        count=$(( count + 1 ))
+        while read line; do
+            if (( index > start )); then
+                if (( index < count )); then
+                    if ! test -f "list/$line.txt"; then
+                        gamelnk="$baselnk/$line.zip"
+                        gamezip="$line.zip"
+                        gamedisc="$line.rvz"
+                        echo -e "Processing $line"
+                        wget -q "$gamelnk"
+                        7z x "$gamezip" -y -bso0 -bsp0 -bse0
+                        rm -rf "$gamezip"
+                        ./dtk vfs ls -r "$gamedisc:files" > "list/$line.txt"
+                        rm -rf "$gamedisc"
+                    fi
+                fi
+            fi
+            index=$(( index + 1 ))
+        done <list.txt
         7z a DVDFSList.7z ./list/*
         rm -rf dtk
 
