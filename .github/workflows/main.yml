@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  main:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -32,11 +32,13 @@ jobs:
     # List files
     - name: List files
       run: |
-        echo SETUP!!!
         baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
-        declare -i start=0
+        
+        declare -i start=11
         declare -i count=10
         declare -i index=0
+        
+        start=$(( start - 1 ))
         count=$(( count + start ))
         count=$(( count + 1 ))
         while read line; do
@@ -46,10 +48,13 @@ jobs:
                         gamelnk="$baselnk/$line.zip"
                         gamezip="$line.zip"
                         gamedisc="$line.rvz"
-                        echo -e "Processing $line"
-                        wget -q "$gamelnk"
+                        echo -e "$line"
+                        echo -e "      Downloading"
+                        wget "$gamelnk"
+                        echo -e "      Extract"
                         7z x "$gamezip" -y -bso0 -bsp0 -bse0
                         rm -rf "$gamezip"
+                        echo -e "      List"
                         ./dtk vfs ls -r "$gamedisc:files" > "list/$line.txt"
                         rm -rf "$gamedisc"
                     fi
