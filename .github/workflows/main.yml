@@ -6,7 +6,7 @@ on:
 
 env:
   START_INDEX: 350
-  COUNT_INDEX: 150
+  COUNT_INDEX: 250
 
 jobs:
   main:
