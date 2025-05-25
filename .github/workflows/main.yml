@@ -1,0 +1,43 @@
+name: List
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+    # Checkout
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    # Setup environment
+    - name: Setup environment
+      run: |
+        mkdir -p list
+        sudo apt-get update
+        chmod +x get.sh
+
+    # Install dependencies
+    - name: Install dependencies
+      run: sudo apt install 7zip
+
+    # List files
+    - name: List files
+      run: |
+        bash get.sh
+        7z a DVDFSList.7z ./list/*
+        rm -rf dtk
+
+    # Upload list
+    - name: Upload list
+      uses: actions/upload-artifact@v4
+      with:
+        name: DVDFSList
+        path: DVDFSList.7z

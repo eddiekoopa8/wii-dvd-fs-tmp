@@ -1,0 +1,6 @@
+*.zip
+*.rvz
+list/*
+*.c
+*.bak
+dtk
