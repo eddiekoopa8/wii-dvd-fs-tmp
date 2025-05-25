@@ -5,8 +5,8 @@ on:
   pull_request:
 
 env:
-  START_INDEX: 120
-  COUNT_INDEX: 80
+  START_INDEX: 200
+  COUNT_INDEX: 150
 
 jobs:
   main:
