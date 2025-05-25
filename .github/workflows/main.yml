@@ -51,13 +51,15 @@ jobs:
                     if ! test -f "list/$line.txt"; then
                         gamelnk="$baselnk/$line.zip"
                         gamezip="$line.zip"
-                        gamedisc="$line.rvz"
+                        #gamedisc="$line.rvz"
                         echo -e "$line ($index/$count)"
                         echo -e "     Download"
                         wget -q "$gamelnk"
                         echo -e "     Extract"
                         7z x "$gamezip" -y -bso0 -bsp0 -bse0
                         rm -rf "$gamezip"
+                        rvzlist=(*.rvz)
+                        gamedisc="${rvzlist[0]}"
                         echo -e "     List"
                         ./dtk vfs ls -r "$gamedisc:files" > "list/$line.txt"
                         rm -rf "$gamedisc"
