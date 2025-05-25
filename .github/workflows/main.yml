@@ -5,8 +5,8 @@ on:
   pull_request:
 
 env:
-  START_INDEX: 200
-  COUNT_INDEX: 150
+  START_INDEX: 350
+  COUNT_INDEX: 500
 
 jobs:
   main:
@@ -38,9 +38,9 @@ jobs:
       run: |
         baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
         
-        declare -i start=$START_INDEX
-        declare -i count=$COUNT_INDEX
-        declare -i index=0
+        start=$START_INDEX
+        count=$COUNT_INDEX
+        index=0
         
         start=$(( start - 1 ))
         count=$(( count + start ))
@@ -52,7 +52,7 @@ jobs:
                         gamelnk="$baselnk/$line.zip"
                         gamezip="$line.zip"
                         gamedisc="$line.rvz"
-                        echo -e "$line"
+                        echo -e "$line ($index/$count)"
                         echo -e "     Download"
                         wget -q "$gamelnk"
                         echo -e "     Extract"
