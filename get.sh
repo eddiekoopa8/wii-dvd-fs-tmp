@@ -3,8 +3,8 @@
 # Global variables
 baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
 
-start=800
-count=200
+start=1000
+count=1500
 
 index=0
 
@@ -18,14 +18,14 @@ while read line; do
                 gamelnk="$baselnk/$line.zip"
                 gamezip="$line.zip"
                 #gamedisc="$line.rvz"
-                echo -e "$line ($index/$count)"
+                echo -e "$line ($index/$count done)"
                 echo -e "     Download"
                 wget -q "$gamelnk"
                 while [ $? -eq 4 ]; do
                     echo -e "         TRY AGAIN"
-                    wget -q "$gamelnk"
+                    wget -q --read-timeout=1500 "$gamelnk"
                 done
-				echo -e "         ERROR code $?"
+				 echo -e "         ERROR code $?"
                 echo -e "     Extract"
                 7z x "$gamezip" -y -bso0 -bsp0 -bse0
                 rm -rf "$gamezip"
@@ -39,3 +39,4 @@ while read line; do
     fi
     index=$(( index + 1 ))
 done <list.txt
+echo -e "All $count completed!"
