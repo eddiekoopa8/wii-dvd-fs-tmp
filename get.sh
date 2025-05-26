@@ -21,10 +21,11 @@ while read line; do
                 echo -e "$line ($index/$count)"
                 echo -e "     Download"
                 wget -q "$gamelnk"
-                while [ $? -ne 0 ]; do
+                while [ $? -eq 4 ]; do
                     echo -e "         TRY AGAIN"
                     wget -q "$gamelnk"
                 done
+				echo -e "         ERROR code $?"
                 echo -e "     Extract"
                 7z x "$gamezip" -y -bso0 -bsp0 -bse0
                 rm -rf "$gamezip"
