@@ -24,6 +24,7 @@ jobs:
     # Install dependencies
     - name: Install dependencies
       run: |
+        sudo apt install 7zip
         wget -q "https://github.com/encounter/decomp-toolkit/releases/download/v1.5.1/dtk-linux-x86_64"
         mv dtk* dtk
         chmod +x dtk
