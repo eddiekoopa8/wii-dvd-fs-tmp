@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Global variables
+baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
+
+start=350
+count=250
+
+index=0
+
+start=$(( start - 1 ))
+count=$(( count + start ))
+count=$(( count + 1 ))
+while read line; do
+    if (( index > start )); then
+        if (( index < count )); then
+            if ! test -f "list/$line.txt"; then
+                gamelnk="$baselnk/$line.zip"
+                gamezip="$line.zip"
+                #gamedisc="$line.rvz"
+                echo -e "$line ($index/$count)"
+                echo -e "     Download"
+                wget -q "$gamelnk"
+                while [ $? -ne 0 ]; do
+                    echo -e "         TRY AGAIN"
+                    wget -q "$gamelnk"
+                done
+                echo -e "     Extract"
+                7z x "$gamezip" -y -bso0 -bsp0 -bse0
+                rm -rf "$gamezip"
+                rvzlist=(*.rvz)
+                gamedisc="${rvzlist[0]}"
+                echo -e "     List"
+                ./dtk vfs ls -r "$gamedisc:files" > "list/$line.txt"
+                rm -rf "$gamedisc"
+            fi
+        fi
+    fi
+    index=$(( index + 1 ))
+done <list.txt

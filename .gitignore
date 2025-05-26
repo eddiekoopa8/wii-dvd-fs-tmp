@@ -4,4 +4,3 @@ list/*
 *.c
 *.bak
 dtk
-*.sh
