@@ -4,7 +4,7 @@
 baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
 
 start=1750
-count=255
+count=250
 
 index=0
 
@@ -17,6 +17,7 @@ while read line; do
             if ! test -f "list/$line.txt"; then
                 gamelnk="$baselnk/$line.zip"
                 gamezip="$line.zip"
+		attempt=0
                 #gamedisc="$line.rvz"
                 echo -e "$line ($index/$count done)"
                 echo -e "     Download"
@@ -24,8 +25,12 @@ while read line; do
                 while [ $? -eq 4 ]; do
                     echo -e "         TRY AGAIN"
                     wget -q --read-timeout=1500 "$gamelnk"
+		    if (( attempt > 2 )); then
+                        break
+                    fi
+		    attempt=$(( attempt + 1 ))
                 done
-				 echo -e "         ERROR code $?"
+                echo -e "         ERROR code $?"
                 echo -e "     Extract"
                 7z x "$gamezip" -y -bso0 -bsp0 -bse0
                 rm -rf "$gamezip"
