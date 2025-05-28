@@ -4,7 +4,7 @@
 baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
 
 start=2500
-count=210
+count=100
 
 index=0
 
