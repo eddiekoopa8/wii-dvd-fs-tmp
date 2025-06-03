@@ -32,9 +32,9 @@ jobs:
     # List files
     - name: List files
       run: |
-        bash get.sh
-        7z a DVDFSList.7z ./list/*
+        bash getfileexts.sh
         rm -rf dtk
+        7z a DVDFSData.7z ./*
 
     # Upload list
     - name: Upload list
