@@ -36,7 +36,7 @@ jobs:
         7z x "list.7z" -olist -y -bso0 -bsp0
         bash getfileexts.sh
         rm -rf dtk
-        7z a DVDFSData.7z ./*
+        7z a DVDFSData.7z ./data/*
 
     # Upload list
     - name: Upload list
