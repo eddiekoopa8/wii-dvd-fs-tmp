@@ -44,9 +44,9 @@ while read line; do
 						
 						# echo -e "$fileraw"
 						#echo -e "$line - \"$fileName\""
-						mkdir -p "$line/${fileName%/*}"
+						mkdir -p "data/$line/${fileName%/*}"
 						#echo -e "$line - \"${fileName%/*}\""
-						./dtk vfs cp "${gamedisc}:files/$fileName" "$line/"
+						./dtk vfs cp "${gamedisc}:files/$fileName" "data/$line/"
 					fi
 				done <"list/$line.txt"
 				rm -rf "$gamedisc"
