@@ -4,7 +4,7 @@
 baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
 
 start=0
-count=5000
+count=3500
 
 index=0
 
@@ -46,7 +46,7 @@ while read line; do
 						#echo -e "$line - \"$fileName\""
 						mkdir -p "$line/${fileName%/*}"
 						#echo -e "$line - \"${fileName%/*}\""
-						./dtk vfs cp "${gamedisc}:files/$fileName" "$line/$fileName"
+						./dtk vfs cp "${gamedisc}:files/$fileName" "$line/"
 					fi
 				done <"list/$line.txt"
 				rm -rf "$gamedisc"
