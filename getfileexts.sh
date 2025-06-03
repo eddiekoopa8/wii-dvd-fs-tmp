@@ -8,7 +8,7 @@ count=3500
 
 index=0
 
-fileext=".a"
+fileext=".wad"
 
 start=$(( start - 1 ))
 count=$(( count + start ))
@@ -46,7 +46,7 @@ while read line; do
 						#echo -e "$line - \"$fileName\""
 						mkdir -p "data/$line/${fileName%/*}"
 						#echo -e "$line - \"${fileName%/*}\""
-						./dtk vfs cp "${gamedisc}:files/$fileName" "data/$line/"
+						./dtk vfs cp "${gamedisc}:files/$fileName" "data/$line/$fileName"
 					fi
 				done <"list/$line.txt"
 				rm -rf "$gamedisc"
