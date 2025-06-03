@@ -33,7 +33,7 @@ jobs:
     - name: List files
       run: |
         mkdir -p list
-        7z x "list.7z" -o/list -y -bso0 -bsp0
+        7z x "list.7z" -olist -y -bso0 -bsp0
         bash getfileexts.sh
         rm -rf dtk
         7z a DVDFSData.7z ./*
