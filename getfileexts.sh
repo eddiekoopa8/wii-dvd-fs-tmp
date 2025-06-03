@@ -18,35 +18,36 @@ while read line; do
     if (( index > start )); then
         if (( index < count )); then
             if test -f "list/$line.txt"; then
-				
 				while read fileraw; do
 					if [[ $fileraw == *"$fileextCheck"* ]]; then
-						gamelnk="$baselnk/$line.zip"
-						gamezip="$line.zip"
-						gamedisc="$line.rvz"
-						if ! test -f "$gamedisc"; then
-							echo -e "$line"
-							echo -e "     Download"
-							wget -q "$gamelnk"
-							while [ $? -eq 4 ]; do
-								echo -e "         TRY AGAIN"
+     						if [[ $fileraw != *"DataWII"* ]]; then # stop it
+							gamelnk="$baselnk/$line.zip"
+							gamezip="$line.zip"
+							gamedisc="$line.rvz"
+							if ! test -f "$gamedisc"; then
+								echo -e "$line"
+								echo -e "     Download"
 								wget -q "$gamelnk"
-							done
-							echo -e "         ERROR code $?"
-							echo -e "     Extract"
-							7z x "$gamezip" -y -bso0 -bsp0 -bse0
-							rm -rf "$gamezip"
-						fi
-						exclude=" | "
-						fileName="${fileraw#*$exclude*}"
-						exclude="${fileName#*$fileext*}"
-						fileName=${fileName//"$exclude"/}
-						
-						# echo -e "$fileraw"
-						#echo -e "$line - \"$fileName\""
-						mkdir -p "data/$line/${fileName%/*}"
-						#echo -e "$line - \"${fileName%/*}\""
-						./dtk vfs cp "${gamedisc}:files/$fileName" "data/$line/$fileName"
+								while [ $? -eq 4 ]; do
+									echo -e "         TRY AGAIN"
+									wget -q "$gamelnk"
+								done
+								echo -e "         ERROR code $?"
+								echo -e "     Extract"
+								7z x "$gamezip" -y -bso0 -bsp0 -bse0
+								rm -rf "$gamezip"
+							fi
+							exclude=" | "
+							fileName="${fileraw#*$exclude*}"
+							exclude="${fileName#*$fileext*}"
+							fileName=${fileName//"$exclude"/}
+							
+							# echo -e "$fileraw"
+							#echo -e "$line - \"$fileName\""
+							mkdir -p "data/$line/${fileName%/*}"
+							#echo -e "$line - \"${fileName%/*}\""
+							./dtk vfs cp "${gamedisc}:files/$fileName" "data/$line/$fileName"
+      						fi
 					fi
 				done <"list/$line.txt"
 				rm -rf "$gamedisc"
