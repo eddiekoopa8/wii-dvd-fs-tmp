@@ -20,7 +20,7 @@ while read line; do
             if test -f "list/$line.txt"; then
 				while read fileraw; do
 					if [[ $fileraw == *"$fileextCheck"* ]]; then
-     						if [[ $fileraw != *"DataWII"* ]] && [[ $fileraw != *"streamsn"* ]]; then # stop it
+     						if [[ $fileraw != *"DataWII"* ]] && [[ $fileraw != *"streamsn"* ]] && [[ $fileraw != *"GAME"* ]]; then # stop it
 							gamelnk="$baselnk/$line.zip"
 							gamezip="$line.zip"
 							gamedisc="$line.rvz"
