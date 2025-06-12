@@ -8,7 +8,7 @@ count=3500
 
 index=0
 
-fileext=".wad"
+fileext=".bnr"
 
 start=$(( start - 1 ))
 count=$(( count + start ))
