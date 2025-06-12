@@ -4,11 +4,11 @@
 baselnk="https://myrient.erista.me/files/Redump/Nintendo%20-%20Wii%20-%20NKit%20RVZ%20[zstd-19-128k]"
 
 start=0
-count=850
+count=3500
 
 index=0
 
-fileext=".bnr"
+fileext="_wiid.elf"
 
 start=$(( start - 1 ))
 count=$(( count + start ))
